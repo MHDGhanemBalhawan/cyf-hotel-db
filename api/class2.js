@@ -21,13 +21,12 @@ router.get("/customers/:id", function(req, res) {
   let reqid = req.params.id;
   var sql = `select * from customers where id = ${reqid}`;
 
-  db.all(sql, [params], (err, rows) => {
-    res.status(200).json({
-      id: customers.id,
-      firstName: customers.firstname,
-      surname: customers.surname,
-      email: customers.email
-    });
+  db.all(sql, [], (err, rows) => {
+    res.status(200).json({ customers: rows });
+    // id: customers.id,
+    // firstName: customers.firstname,
+    // surname: customers.surname,
+    // email: customers.email
   });
 });
 
@@ -95,7 +94,15 @@ router.get("/reservations", function(req, res) {
 
 // get '/reservations/:id'
 // TODO: add code here
+router.get("/reservations/:id", function(req, res) {
+  console.log(req.body);
+  let reqid = req.params.id;
 
+  var sql = `select * FROM reservations WHERE id = ${reqid}`;
+  db.all(sql, [], (err, rows) => {
+    res.status(200).json({ reservations: rows });
+  });
+});
 // delete '/reservations/:id'
 // TODO: add code here
 router.delete("/reservations/:id", function(req, res) {
@@ -108,9 +115,32 @@ router.delete("/reservations/:id", function(req, res) {
 });
 // get '/reservations/starting-on/:startDate'
 // TODO: add code here
+router.get("/reservations/:date", function(req, res) {
+  // TODO: add code here
+  let reqdate = req.params.date;
+  var sql = `select * from reservations where check_in_date = ${reqdate}`;
+
+  db.all(sql, [], (err, rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  });
+});
+
 // get '/reservations/active-on/:date'
 // TODO: add code here
+router.get("/reservations/active-on/:date", function(req, res) {
+  // TODO: add code here
+  let reqdate = req.params.date;
+  let activeDate = Date();
+  var sql = `select * from reservations where check_in_date = ${reqdate}`;
 
+  db.all(sql, [], (err, rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  });
+});
 // post '/reservations'
 // EXPECTED JSON Object:
 // {
@@ -127,6 +157,19 @@ router.delete("/reservations/:id", function(req, res) {
 
 // get `/invoices/details-between/:from_day/:to_day`
 // TODO: add code here
+router.get("/invoices/details-between/:from_day/:to_day", function(req, res) {
+  // TODO: add code here
+  let reqStartdate = req.params.from_day;
+  let reqEndtdate = req.params.to_day;
+  var sql = `select * from invoices where invoice_date_time >= ${reqStartdate} and invoice_date_time <= ${reqEndtdate}`;
+
+  db.all(sql, [], [], (err, rows) => {
+    res.status(200).json({
+      invoices: rows
+    });
+  });
+});
+
 // get '/invoices'
 // TODO: add code here
 router.get("/invoices", function(req, res) {
