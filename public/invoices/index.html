@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CYF Hotel Customers</title>
+  <title>CYF Hotel Invoices</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -25,11 +25,11 @@
   <div class="container">
     <div class="row">
       <div class="col-10">
-        <h1>Customers</h1>
+        <h1>invoices</h1>
       </div>
       <div class="col-2">
-        <!--
-          <button type="submit" class="btn btn-primary fn-fetch">Fetch customers</button>
+        <!-- 
+        <button type="submit" class="btn btn-primary fn-fetch">Fetch customers</button>
         -->
 
       </div>
@@ -40,19 +40,16 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Title</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
+              <th>Reservation Id</th>
+              <th>Total</th>
+              <th>Surcharges</th>
+              <th>Invoice Date</th>
+              <th>Paid</th>
             </tr>
           </thead>
           <tbody id="rows">
             <tr>
-              <th scope="row">0</th>
-              <td>Mr</td>
-              <td>Dmitri</td>
-              <td>Grabov</td>
-              <td>d.grabov@gmail.com</td>
+
             </tr>
           </tbody>
         </table>
@@ -72,55 +69,32 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
   <script id="template" type="text/x-handlebars-template">
-
-       <tr>
-         
+      <tr>
         <th scope="row">{{ id }}</th>
-        <td><a  href="/customers/ {{ customers.id }}">{{ id }}</a></td>
-        <td>{{ title }}</td>
-        <td>{{ firstname }}</td>
-        <td>{{ surname }}</td>
-        <td>{{ email }}</td>
-       
+        <td>{{ reservation_id }}</td>
+        <td>{{ total }}</td>
+        <td>{{ surcharges }}</td>
+        <td>{{ invoice_date_time }}</td>
+        <td>{{ paid }}</td>
       </tr>
- 
+
+  
     </script>
   <script type="text/javascript">
-    // $('.fn-fetch').on('click', event => {
-    //   event.preventDefault();
-
-    //   $.ajax({
-    //     method: 'GET',
-    //     url: '/api/customers/'
-    //   }).done(data => {
-    //     const source = $("#template").html();
-    //     const template = Handlebars.compile(source);
-
-    //     const rows = data.customers.map(customer => {
-    //       return template(customer);
-    //     });
-
-    //     $('#rows').html(rows.join());
-    //   });
-    // });
-
-
+ 
     $.ajax({
       method: 'GET',
-      url: '/api/customers/'
+      url: '/api/invoices/'
     }).done(data => {
       const source = $("#template").html();
       const template = Handlebars.compile(source);
 
-      const rows = data.customers.map(customer => {
-        return template(customer);
+      const rows = data.invoices.map(invoice => {
+        return template(invoice);
       });
 
       $('#rows').html(rows.join());
     });
-
-
-
 
   </script>
 </body>

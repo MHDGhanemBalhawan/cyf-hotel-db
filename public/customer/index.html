@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CYF Hotel Customers</title>
+  <title>CYF Hotel Customer</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -25,13 +25,10 @@
   <div class="container">
     <div class="row">
       <div class="col-10">
-        <h1>Customers</h1>
+        <h1>Customer</h1>
       </div>
       <div class="col-2">
-        <!--
-          <button type="submit" class="btn btn-primary fn-fetch">Fetch customers</button>
-        -->
-
+        <button type="submit" class="btn btn-primary fn-fetch">Fetch customers</button>
       </div>
     </div>
     <div class="row">
@@ -48,11 +45,7 @@
           </thead>
           <tbody id="rows">
             <tr>
-              <th scope="row">0</th>
-              <td>Mr</td>
-              <td>Dmitri</td>
-              <td>Grabov</td>
-              <td>d.grabov@gmail.com</td>
+
             </tr>
           </tbody>
         </table>
@@ -73,17 +66,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
   <script id="template" type="text/x-handlebars-template">
 
-       <tr>
-         
+
+    <a href="/customer/<%= id %>" class="list-group-item">
+      <p class="list-group-item-text">
+         {id} 
+      </p>
+      <h4 class="list-group-item-heading">
+         {firstname} 
+      </h4>
+      <p class="list-group-item-text">
+        { surname } 
+      </p>
+      <p class="list-group-item-text">
+         {email} 
+      </p>
+  
+    </a>
+
+      <tr>
         <th scope="row">{{ id }}</th>
-        <td><a  href="/customers/ {{ customers.id }}">{{ id }}</a></td>
         <td>{{ title }}</td>
         <td>{{ firstname }}</td>
         <td>{{ surname }}</td>
         <td>{{ email }}</td>
-       
       </tr>
- 
     </script>
   <script type="text/javascript">
     // $('.fn-fetch').on('click', event => {
@@ -107,7 +113,7 @@
 
     $.ajax({
       method: 'GET',
-      url: '/api/customers/'
+      url: '/api/customers/id'
     }).done(data => {
       const source = $("#template").html();
       const template = Handlebars.compile(source);
@@ -118,9 +124,6 @@
 
       $('#rows').html(rows.join());
     });
-
-
-
 
   </script>
 </body>
