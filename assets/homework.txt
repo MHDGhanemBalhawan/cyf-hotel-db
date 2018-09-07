@@ -1,0 +1,23 @@
+  Week 18
+
+  Homework 1
+
+  select * from reservations JOIN invoices ON reservations.id = invoices.reservation_id;
+
+Homework 2
+SELECT sum(total) FROM invoices where invoice_date_time >= '2017-04-01' and invoice_date_time <= '2017-08-31';
+
+homwork 3
+
+ select count(*) as number_of_visit, customer_id from reservations group by customer_id order by number_of_visit desc;
+
+select count(*) as number_of_visit, customer_id, firstname, surname from reservations JOIN customers ON reservations.customer_id = customers.id group by customer_id order by number_of_visit desc;
+
+
+ Homework 4
+
+select count(*) as number_of_visit, customer_id, firstname, surname from reservations JOIN customers ON reservations.customer_id = customers.id group by customer_id order by number_of_visit desc;
+
+
+
+

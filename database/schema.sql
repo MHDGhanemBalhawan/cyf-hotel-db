@@ -95,6 +95,16 @@ INSERT INTO reservations (customer_id, room_id, check_in_date, room_price) VALUE
 INSERT INTO reservations (customer_id, room_id, check_in_date,check_out_date, room_price) VALUES (1, 2, '2018-11-01', '2018-11-05', 80);
 INSERT INTO reservations (customer_id, room_id, check_in_date, check_out_date, room_price) VALUES (2, 2, '2018-04-19', '2018-04-25', 80);
 
+INSERT INTO reservations (customer_id, room_id, check_in_date, room_price) VALUES (1, 3, '2017-04-11', 80);
+INSERT INTO reservations (customer_id, room_id, check_in_date, room_price) VALUES (1, 3, '2017-05-11', 80);
+INSERT INTO reservations (customer_id, room_id, check_in_date, room_price) VALUES (1, 3, '2018-06-14', 50.50);
+INSERT INTO reservations (customer_id, room_id, check_in_date, room_price) VALUES (1, 3, '2018-08-15', 50.50);
+INSERT INTO reservations (customer_id, room_id, check_in_date,check_out_date, room_price) VALUES (1, 3, '2018-10-01', '2018-10-05', 80);
+INSERT INTO reservations (customer_id, room_id, check_in_date, check_out_date, room_price) VALUES (1, 3, '2018-08-19', '2018-08-25', 80);
+
+
+
+
 INSERT INTO invoices (reservation_id, total, surcharges, invoice_date_time, paid) VALUES (1, 700, 50, '2017-08-01', 1);
 INSERT INTO invoices (reservation_id, total, surcharges, invoice_date_time, paid) VALUES (2, 1000, 550, '2017-08-08', 0);
 INSERT INTO invoices (reservation_id, total, surcharges, invoice_date_time, paid) VALUES (3, 200, 50, '2018-08-25', 1);
