@@ -160,31 +160,53 @@ router.get("/stats-price-room/", function(req, res) {
 // homework 11 /rooms/available-in/:from_day/:to_day
 
 
+router.get("/rooms/available-in/:from_day/:to_day", function(req, res) {
+  // TODO: add code here
+  let reqStartdate = req.params.from_day;
+  let reqEndtdate = req.params.to_day;
+
+  var sql = `SELECT id, room_type_id FROM rooms WHERE id NOT IN
+(
+    SELECT room_id
+    FROM   reservations R
+           JOIN rooms RR
+               ON R.room_id = RR.id
+    WHERE  (check_in_date <= ${reqStartdate} AND check_out_date >= ${reqEndtdate})
+           OR (check_in_date < ${reqEndtdate} AND check_out_date >= ${reqEndtdate} )
+           OR (${reqStartdate} <= check_in_date AND ${reqEndtdate} >= check_out_date)
+
+)`;
+
+  db.all(sql, [], [], (err, rows) => {
+    res.status(200).json({
+      reservations: rows
+    });
+  });
+});
 
 /*
-SELECT RoomType 
-FROM ROOMS 
-WHERE RoomID NOT IN 
+
+
+SELECT id, room_type_id
+FROM rooms
+WHERE id NOT IN
 (
-    SELECT RoomID 
-    FROM   BOOKING B
-           JOIN ROOMS_BOOKED RB
-               ON B.BookingID = RB.BookingID
-    WHERE  (ArrivalDate <= @ArrivalDate AND DepartureDate >= @ArrivalDate) -- cases 3,5,7
-           OR (ArrivalDate < @DepartureDate AND DepartureDate >= @DepartureDate ) --cases 6,6
-           OR (@ArrivalDate <= ArrivalDate AND @DepartureDate >= ArrivalDate) --case 4
+    SELECT room_id
+    FROM   reservations R
+           JOIN rooms RR
+               ON R.room_id = RR.id
+    WHERE  (check_in_date <= '2018-07-11' AND check_out_date >= '2018-09-12')
+           OR (check_in_date < '2018-09-12' AND check_out_date >= '2018-09-12' )
+           OR ('2018-07-11' <= check_in_date AND '2018-09-12' >= check_out_date)
+
+);
 
 
 // HOMEWORK
 // get `/stats-price-room/`
 // TODO: add code here
 
-
-// HOMEWORK
-// get `/rooms/available-in/:from_day/:to_day`
-// TODO: add code here
-
-
+*/
 
 module.exports = router;
 
